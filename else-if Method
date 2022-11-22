@@ -1,0 +1,50 @@
+const initialWagonState = {
+  supplies: 100,
+  distance: 0,
+  days: 0,
+}
+
+console.log(initialWagonState )
+const callReducer = (state = initialWagonState, action) => {
+  if('gather' === action.type) {
+    return {
+      ...state,
+      supplies: state.supplies + 15,
+      distance: state.distance,
+      days: state.days
+    }
+  }else if('travel' === action.type) {
+    return {
+      ...state,
+      supplies: state.supplies - (20 * 3),
+      distance: state.distance + (10 * 3),
+      days: state.days + 3
+    }
+  }else if('tippedWagon' === action.type) {
+    return {
+      ...state,
+      supplies: state.supplies - 30,
+      distance: state.distance,
+      days: state.days + 1
+    }
+  }
+  else{
+    return state
+  }
+}
+
+let wagon = callReducer(undefined, {});
+console.log('initial state')
+console.log(wagon);
+
+wagon = callReducer(wagon, {type: 'travel', payload: 1})
+console.log(wagon);
+
+wagon = callReducer(wagon, {type: 'gather', payload: 0})
+console.log(wagon);
+
+wagon =  callReducer(wagon, {type: 'tippedWagon', payload: 0})
+console.log(wagon);
+
+wagon = callReducer(wagon, {type: 'travel', payload: 3})
+console.log(wagon)
